@@ -52,4 +52,4 @@ But in UEB, the mapping is not one-to-one. A sequence of dots will coincidentall
 ```
 
 That is the word "Phone" written in contracted UEB, spelled like "Ph[One]", UEB is a shortcut language for a roughly 20% reduction in the number of characters typed.
-It is the standard for English Braille, but most Braille Displays boot up using Computer Braille, which is what the table at the top of this document describes.
+It is the standard for English Braille, but most Braille Displays boot up using Computer Braille, which is what the table at the top of this document describes. The main reason to use contracted braille is to stay within 6-dots. But because 6 dots cannot hold enough information to represent 7-bit ASCII, a stream of Braille characters will cause most punctuation to take multiple cells.
