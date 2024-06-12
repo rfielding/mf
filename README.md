@@ -35,4 +35,21 @@ If it worked, then test.pdf will have a paragraph of Braille in it.
 
 > TODO: I do not yet know how to convert this to web fonts, where you can make Javascript and HTML apps that show text in computer braille, yet copy/paste as normal ASCII. The Braille font is just plaintext that looks like Braille, which is completely different from Unicode Braille characters.
 
+When working in 6-dot braille, dot 7 and dot 8 are masked off.
+
+In computer Braille, this table is used to map a byte to Unicode Braille dots, like this:
+
 ```
+echo Phone | brascii
+⡏⠓⠕⠝⠑
+```
+
+But in UEB, the mapping is not one-to-one. A sequence of dots will coincidentally map to something in the 6-dot range.
+
+```
+(base) >echo 'Ph"O' | brascii -sixdot
+⠏⠓⠐⠕
+```
+
+That is the word "Phone" written in contracted UEB, spelled like "Ph[One]", UEB is a shortcut language for a roughly 20% reduction in the number of characters typed.
+It is the standard for English Braille, but most Braille Displays boot up using Computer Braille, which is what the table at the top of this document describes.
