@@ -1,2 +1,4 @@
 #!/bin/bash
+go run c8brl.go > c8brl.mf
+./clean
 mf '\mode=proofmode; input c8brl' && gftodvi c8brl.2602gf && dvipdfmx c8brl.dvi && pdflatex test.tex 
