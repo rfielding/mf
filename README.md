@@ -37,7 +37,7 @@ Build and run
 
 If it worked, then test.pdf will have a paragraph of Braille in it.
 
-![gilgameshprologue.png](gilgameshprologue.png)
+!(gilgameshprologue.png)[gilgameshprologue.png]
 
 > TODO: I do not yet know how to convert this to web fonts, where you can make Javascript and HTML apps that show text in computer braille, yet copy/paste as normal ASCII. The Braille font is just plaintext that looks like Braille, which is completely different from Unicode Braille characters.
 
