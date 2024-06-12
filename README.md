@@ -24,7 +24,11 @@ The ASCII table is mapped to dots like this:
 | E_| ⢈ <br>   à | ⢁ <br>   á | ⢃ <br>   â | ⢉ <br>   ã | ⢙ <br>   ä | ⢑ <br>   å | ⢋ <br>   æ | ⢛ <br>   ç | ⢓ <br>   è | ⢊ <br>   é | ⢚ <br>   ê | ⢅ <br>   ë | ⢇ <br>   ì | ⢍ <br>   í | ⢝ <br>   î | ⢕ <br>   ï |
 | F_| ⢏ <br>   ð | ⢟ <br>   ñ | ⢗ <br>   ò | ⢎ <br>   ó | ⢞ <br>   ô | ⢥ <br>   õ | ⢧ <br>   ö | ⢺ <br>   ÷ | ⢭ <br>   ø | ⢽ <br>   ù | ⢵ <br>   ú | ⢪ <br>   û | ⢳ <br>   ü | ⢻ <br>   ý | ⢘ <br>   þ | ⣸ <br>   ÿ |
 
-The basic ides is 0x20 through 0x5F is all of the old 6-dot standard. We capitalize all the letters by turning on dot 7. Then we copy the lower half of it down to 0x00 to 0x1F, which is mostly control sequences and unprintable obsolete codes, with dot 7 toggled. A similar thing is done with the top half. The top-half is copied into 0x60 to 0x7F, with dot7 toggled.  And then DEL and underscore are swapped, so that everything in the old 6-dot standard is a visible character on a qwerty keyboard. After this is done, an exact copy is made into 0x80 and dot 8 is enabled. Roughly, this is 7-dot Braille over Printable ASCII.  Codes with a dot 8 are more useful for helping with input than with output.
+The basic idea is 0x20 through 0x5F is all of the old 6-dot standard. We capitalize all the letters by turning on dot 7. Then we copy the lower half of it down to 0x00 to 0x1F, which is mostly control sequences and unprintable obsolete codes, with dot 7 toggled. A similar thing is done with the top half. The top-half is copied into 0x60 to 0x7F, with dot7 toggled.  And then DEL and underscore are swapped, so that everything in the old 6-dot standard is a visible character on a qwerty keyboard. After this is done, an exact copy is made into 0x80 and dot 8 is enabled. Roughly, this is 7-dot Braille over Printable ASCII.  Codes with a dot 8 are more useful for helping with input than with output.
+
+
+Build and run
+===========
 
 ```
 ./clean  # remove all of the build turds. some things do not work without a clean build
@@ -32,6 +36,8 @@ The basic ides is 0x20 through 0x5F is all of the old 6-dot standard. We capital
 ```
 
 If it worked, then test.pdf will have a paragraph of Braille in it.
+
+![gilgameshprologue.png](gilgameshprologue.png)
 
 > TODO: I do not yet know how to convert this to web fonts, where you can make Javascript and HTML apps that show text in computer braille, yet copy/paste as normal ASCII. The Braille font is just plaintext that looks like Braille, which is completely different from Unicode Braille characters.
 
