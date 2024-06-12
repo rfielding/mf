@@ -443,21 +443,3 @@ endchar;
 
 
 end
-beginchar(70, 8pt#, 12pt#, 0);
-  cell(w,75);
-endchar;
-
-
-
-
-
-end
-beginchar(22, 8pt#, 12pt#, 0);
-  cell(w,86);
-endchar;
-
-
-
-
-
-end
