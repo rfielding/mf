@@ -428,18 +428,4 @@ endchar;
 beginchar(127, 8pt#, 12pt#, 0);
   cell(w,56);
 endchar;
-
-
-
-
-
-end
-beginchar(22, 8pt#, 12pt#, 0);
-  cell(w,86);
-endchar;
-
-
-
-
-
 end
