@@ -1,0 +1,2 @@
+#!/bin/bash
+mf '\mode=proofmode; input cee' && gftodvi cee.2602gf && dvipdfmx cee.dvi && open cee.pdf
