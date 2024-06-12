@@ -1,0 +1,52 @@
+mode_setup;
+
+font_size 8pt#;
+font_slant 0; % number of points moved rightward per point moved upward
+font_normal_space 8pt#;
+font_normal_stretch 0pt#;
+font_normal_shrink 0pt#;
+font_x_height 4.5pt#;
+font_quad 8pt#;
+
+% close your eyes, son.
+def bitwise_and(expr a, b) =
+  (a mod 2) * (b mod 2) +
+  ((a div 2) mod 2) * ((b div 2) mod 2) * 2 +
+  ((a div 4) mod 2) * ((b div 4) mod 2) * 4 +
+  ((a div 8) mod 2) * ((b div 8) mod 2) * 8 +
+  ((a div 16) mod 2) * ((b div 16) mod 2) * 16 +
+  ((a div 32) mod 2) * ((b div 32) mod 2) * 32 +
+  ((a div 64) mod 2) * ((b div 64) mod 2) * 64 +
+  ((a div 128) mod 2) * ((b div 128) mod 2) * 128
+enddef;
+
+vardef cell(expr w, n) =
+  z1 = (1/3 w, 4/3 w);
+  z2 = (1/3 w, 3/3 w);
+  z3 = (1/3 w, 2/3 w);
+
+  z4 = (2/3 w, 4/3 w);
+  z5 = (2/3 w, 3/3 w);
+  z6 = (2/3 w, 2/3 w);
+
+  z7 = (1/3 w, 1/3 w);
+  z8 = (2/3 w, 1/3 w);
+
+  pickup pencircle scaled 0.25w;
+  if bitwise_and(n,1)=1:   draw z1; fi;
+  if bitwise_and(n,2)=2:   draw z2; fi;
+  if bitwise_and(n,4)=4:   draw z3; fi;
+  if bitwise_and(n,8)=8:   draw z4; fi;
+  if bitwise_and(n,16)=16: draw z5; fi;
+  if bitwise_and(n,32)=32: draw z6; fi;
+  if bitwise_and(n,64)=64: draw z7; fi;
+  if bitwise_and(n,128)=128: draw z8; fi;
+  penlabels(1, 2, 3, 4, 5, 6, 7, 8);
+enddef;
+
+{{range $index,$element := .}}
+beginchar({{$index}}, 8pt#, 12pt#, 0);
+  cell(w,{{$element}});
+endchar;
+{{end}}
+end
