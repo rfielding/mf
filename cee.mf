@@ -1,16 +1,33 @@
+% This is a simple Metafont program for a single Braille cell with all 8 dots on
+
 mode_setup;
 
-% (character code, width, height, depth)
-beginchar("q", 8pt#, 10pt#, 0);
-  "A funny shape";
-  % Can use variables w, h, d below.
-  z1 = (1/7 w, 7/8 h);
-  z2 = (6/7 w, 4/8 h);
-  z3 = (3/7 w, 3/8 h);
-  z4 = (3/7 w, 1/8 h);
-  pickup pencircle scaled 0.15w;
-  draw z1 .. z2 .. z3 -- z4;
-  penlabels(1, 2, 3, 4);  
+% Define dot size and spacing
+dot_diameter := 1;
+dot_spacing := 2;
+char_width := 4 * dot_spacing; % Adjust character width
+char_height := 8 * dot_spacing; % Adjust character height
+
+% Define a function to draw a single dot
+def dot (expr x, y) =
+  fill fullcircle scaled dot_diameter shifted (x, y);
+enddef;
+
+% Define a function to draw a Braille cell with all 8 dots
+def draw_braille_cell =
+  dot(0, 0); % Dot 1
+  dot(0, dot_spacing); % Dot 2
+  dot(0, 2 * dot_spacing); % Dot 3
+  dot(0, 3 * dot_spacing); % Dot 4
+  dot(dot_spacing, 0); % Dot 5
+  dot(dot_spacing, dot_spacing); % Dot 6
+  dot(dot_spacing, 2 * dot_spacing); % Dot 7
+  dot(dot_spacing, 3 * dot_spacing); % Dot 8
+enddef;
+
+beginchar("A", char_width, char_height, 0);
+draw_braille_cell;
 endchar;
 
-end
+end.
+
