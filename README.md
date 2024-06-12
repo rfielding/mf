@@ -62,4 +62,4 @@ It is the standard for English Braille, but most Braille Displays boot up using 
 
 
 
-![viyaheyor.png](viyaheyor.png)
+![viaheyor.png](viaheyor.png)
