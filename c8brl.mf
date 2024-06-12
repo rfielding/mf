@@ -1,5 +1,13 @@
 mode_setup;
 
+font_size 8pt#;
+font_slant 0; % number of points moved rightward per point moved upward
+font_normal_space 8pt#;
+font_normal_stretch 0pt#;
+font_normal_shrink 0pt#;
+font_x_height 4.5pt#;
+font_quad 8pt#;
+
 % close your eyes, son.
 def bitwise_and(expr a, b) =
   (a mod 2) * (b mod 2) +
