@@ -1,2 +1,2 @@
 #!/bin/bash
-mf '\mode=proofmode; input cee' && gftodvi cee.2602gf && dvipdfmx cee.dvi && pdflatex test.tex 
+mf '\mode=proofmode; input c8brl' && gftodvi c8brl.2602gf && dvipdfmx c8brl.dvi && pdflatex test.tex 
