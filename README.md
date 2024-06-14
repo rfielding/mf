@@ -45,6 +45,8 @@ When working in 6-dot braille, dot 7 and dot 8 are masked off.
 
 In computer Braille, this table is used to map a byte to Unicode Braille dots, like this:
 
+> The `brascii` tool comes from my repo: rfielding/brailleTools in the cmd/brascii directory. It is `main.go` compiled.
+
 ```
 echo Phone | brascii
 ⡏⠓⠕⠝⠑
