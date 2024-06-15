@@ -1,6 +1,6 @@
 #!/bin/bash
 ./clean
 go run c8brl.go > c8brl.mf
-mktextfm gray
-mktextfm black
+#mktextfm gray
+#mktextfm black
 mf '\mode=proofmode; input c8brl' && gftodvi c8brl.2602gf && dvipdfmx c8brl.dvi && pdflatex test.tex 
