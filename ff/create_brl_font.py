@@ -32,11 +32,11 @@ font.familyname = "ASCII Braille"
 font.encoding = "UnicodeFull"
 
 # Define the Braille cell dimensions and dot radius
-cell_width = 1600
+cell_width = 4000
 cell_height = 2000
 dot_radius = 150
 dot_distance_x = 400
-dot_distance_y = 400  # Same distance for x and y
+dot_distance_y = dot_distance_x  # Same distance for x and y
 
 # Function to draw a circle (approximation using cubic Bézier curves)
 def draw_circle(pen, cx, cy, r):
