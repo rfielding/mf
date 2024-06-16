@@ -1,0 +1,3 @@
+#!/bin/bash
+
+fontforge -script create_brl_font.py
