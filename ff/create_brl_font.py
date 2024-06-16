@@ -88,7 +88,7 @@ for ascii_code, dots in enumerate(ascii_to_brl):
             temp_svg = f"temp_{ascii_code}.svg"
             existing_glyph.export(temp_svg)
             glyph.importOutlines(temp_svg)
-            glyph.transform(psMat.scale(0.5))  # Scale down the existing glyph
+            glyph.transform(psMat.scale(1.5))  # Scale down the existing glyph
             glyph.transform(psMat.translate(0, cell_height - 1.5 * dot_distance_y))  # Move up the glyph
 
 # Save the new font in various formats
