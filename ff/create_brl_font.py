@@ -1,4 +1,5 @@
 import fontforge
+import psMat  # Import psMat for transformations
 
 # ASCII to Braille dot pattern mapping
 ascii_to_brl = [
@@ -20,16 +21,19 @@ ascii_to_brl = [
     0x8f, 0x9f, 0x97, 0x8e, 0x9e, 0xa5, 0xa7, 0xba, 0xad, 0xbd, 0xb5, 0xaa, 0xb3, 0xbb, 0x98, 0xf8
 ]
 
-# Create a new font
+# Load the existing font
+existing_font = fontforge.open('AtkinsonHyperlegible-Regular.ttf')
+
+# Create a new font based on the existing one
 font = fontforge.font()
-font.fontname = "ASCIIBraille"
+font.fontname = "asciibraille"
 font.fullname = "ASCII Braille Font"
 font.familyname = "ASCII Braille"
 font.encoding = "UnicodeFull"
 
 # Define the Braille cell dimensions and dot radius
 cell_width = 1600
-cell_height = 2400  # Adjusted cell height
+cell_height = 2000
 dot_radius = 150
 dot_distance_x = 400
 dot_distance_y = 400  # Same distance for x and y
@@ -50,7 +54,7 @@ def draw_circle(pen, cx, cy, r):
 # 2 5
 # 3 6
 # 7 8
-def draw_braille_cell(glyph, dots):
+def draw_braille_cell(pen, dots):
     dot_positions = [
         (0, cell_height - dot_distance_y),        # Dot 1
         (0, cell_height - 2 * dot_distance_y),    # Dot 2
@@ -62,22 +66,37 @@ def draw_braille_cell(glyph, dots):
         (dot_distance_x, cell_height - 4 * dot_distance_y) # Dot 8
     ]
     
-    pen = glyph.glyphPen()
     for i, position in enumerate(dot_positions):
         if dots & (1 << i):
             x, y = position
-            draw_circle(pen, x, y, dot_radius)
+            draw_circle(pen, x, y+1.5*dot_distance_y, dot_radius)
 
-# Create glyphs for each ASCII character based on the Braille pattern
+# Create Braille glyphs and overlay them
 for ascii_code, dots in enumerate(ascii_to_brl):
+    print(f"Processing ASCII code: {ascii_code}")
     glyph = font.createChar(ascii_code)
     glyph.width = cell_width
-    draw_braille_cell(glyph, dots)
 
-# Save the font in various formats
-font.generate("asciibraille.ttf")
-font.generate("asciibraille.woff")
-font.generate("asciibraille.otf")
+    # Draw the Braille cell
+    pen = glyph.glyphPen()
+    draw_braille_cell(pen, dots)
+    
+    # Overlay the existing glyph if it exists
+    if 32 <= ascii_code < 127:
+        existing_glyph = existing_font[ascii_code]
+        if existing_glyph is not None and existing_glyph.isWorthOutputting():
+            temp_svg = f"temp_{ascii_code}.svg"
+            existing_glyph.export(temp_svg)
+            glyph.importOutlines(temp_svg)
+            glyph.transform(psMat.scale(0.5))  # Scale down the existing glyph
+            glyph.transform(psMat.translate(0, cell_height - 1.5 * dot_distance_y))  # Move up the glyph
 
-print("Font files generated: asciibraille.ttf, asciibraille.woff, asciibraille.otf")
+# Save the new font in various formats
+try:
+    font.generate("asciibraille.ttf")
+    font.generate("asciibraille.woff")
+    font.generate("asciibraille.otf")
+    print("Font files generated: asciibraille.ttf, asciibraille.woff, asciibraille.otf")
+except Exception as e:
+    print(f"Error generating font files: {e}")
 
