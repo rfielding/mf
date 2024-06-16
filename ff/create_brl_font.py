@@ -1,3 +1,4 @@
+#!fontforge -script 
 import fontforge
 import psMat  # Import psMat for transformations
 
