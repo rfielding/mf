@@ -33,7 +33,7 @@ font.familyname = "ASCII Braille"
 font.encoding = "UnicodeFull"
 
 # Define the Braille cell dimensions and dot radius
-cell_width = 4000
+cell_width = 980
 cell_height = 2000
 dot_radius = 150
 dot_distance_x = 400
