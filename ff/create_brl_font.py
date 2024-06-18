@@ -33,7 +33,7 @@ font.familyname = "ASCII Braille"
 font.encoding = "UnicodeFull"
 
 # Define the Braille cell dimensions and dot radius
-cell_width = 980
+cell_width = 1000
 cell_height = 2000
 dot_radius = 150
 dot_distance_x = 400
@@ -56,15 +56,16 @@ def draw_circle(pen, cx, cy, r):
 # 3 6
 # 7 8
 def draw_braille_cell(pen, dots):
+    drop = -7*dot_distance_y
     dot_positions = [
-        (0, cell_height - dot_distance_y),        # Dot 1
-        (0, cell_height - 2 * dot_distance_y),    # Dot 2
-        (0, cell_height - 3 * dot_distance_y),    # Dot 3
-        (dot_distance_x, cell_height - dot_distance_y),    # Dot 4
-        (dot_distance_x, cell_height - 2 * dot_distance_y),# Dot 5
-        (dot_distance_x, cell_height - 3 * dot_distance_y),# Dot 6
-        (0, cell_height - 4 * dot_distance_y),    # Dot 7
-        (dot_distance_x, cell_height - 4 * dot_distance_y) # Dot 8
+        (0, cell_height - dot_distance_y + drop),        # Dot 1
+        (0, cell_height - 2 * dot_distance_y + drop),    # Dot 2
+        (0, cell_height - 3 * dot_distance_y + drop),    # Dot 3
+        (dot_distance_x, cell_height - dot_distance_y + drop),    # Dot 4
+        (dot_distance_x, cell_height - 2 * dot_distance_y + drop),# Dot 5
+        (dot_distance_x, cell_height - 3 * dot_distance_y + drop),# Dot 6
+        (0, cell_height - 4 * dot_distance_y + drop),    # Dot 7
+        (dot_distance_x, cell_height - 4 * dot_distance_y + drop) # Dot 8
     ]
     
     for i, position in enumerate(dot_positions):
@@ -77,6 +78,7 @@ for ascii_code, dots in enumerate(ascii_to_brl):
     print(f"Processing ASCII code: {ascii_code}")
     glyph = font.createChar(ascii_code)
     glyph.width = cell_width
+    #glyph.height = 4*cell_width
 
     # Draw the Braille cell
     pen = glyph.glyphPen()
@@ -89,8 +91,8 @@ for ascii_code, dots in enumerate(ascii_to_brl):
             temp_svg = f"temp_{ascii_code}.svg"
             existing_glyph.export(temp_svg)
             glyph.importOutlines(temp_svg)
-            glyph.transform(psMat.scale(1.5))  # Scale down the existing glyph
-            glyph.transform(psMat.translate(0, cell_height - 1.5 * dot_distance_y))  # Move up the glyph
+            glyph.transform(psMat.scale(0.35))  # Scale down the existing glyph
+            #glyph.transform(psMat.translate(0, cell_height - 1.5 * dot_distance_y))  # Move up the glyph
 
 # Save the new font in various formats
 try:
