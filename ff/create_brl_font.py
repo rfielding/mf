@@ -96,6 +96,8 @@ for ascii_code, dots in enumerate(ascii_to_brl):
 
 # Save the new font in various formats
 try:
+    font.os2_panose = (2, 0, 9, 3, 0, 0, 0, 0, 0, 0)
+
     font.generate("asciibraille.ttf")
     font.generate("asciibraille.woff")
     font.generate("asciibraille.otf")
