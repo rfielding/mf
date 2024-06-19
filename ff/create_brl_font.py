@@ -33,10 +33,10 @@ font.familyname = "ASCII Braille"
 font.encoding = "UnicodeFull"
 
 # Define the Braille cell dimensions and dot radius
-cell_width = 1000
-cell_height = 2000
-dot_radius = 150
-dot_distance_x = 400
+cell_width = 500
+cell_height = 4000
+dot_radius = 2*150
+dot_distance_x = 2*350
 dot_distance_y = dot_distance_x  # Same distance for x and y
 
 # Function to draw a circle (approximation using cubic Bézier curves)
@@ -56,22 +56,23 @@ def draw_circle(pen, cx, cy, r):
 # 3 6
 # 7 8
 def draw_braille_cell(pen, dots):
-    drop = -7*dot_distance_y
+    drop = -4.75*dot_distance_y
+    shift = 0.5*dot_distance_x
     dot_positions = [
-        (0, cell_height - dot_distance_y + drop),        # Dot 1
-        (0, cell_height - 2 * dot_distance_y + drop),    # Dot 2
-        (0, cell_height - 3 * dot_distance_y + drop),    # Dot 3
-        (dot_distance_x, cell_height - dot_distance_y + drop),    # Dot 4
-        (dot_distance_x, cell_height - 2 * dot_distance_y + drop),# Dot 5
-        (dot_distance_x, cell_height - 3 * dot_distance_y + drop),# Dot 6
-        (0, cell_height - 4 * dot_distance_y + drop),    # Dot 7
-        (dot_distance_x, cell_height - 4 * dot_distance_y + drop) # Dot 8
+        (shift+0, cell_height - dot_distance_y + drop),        # Dot 1
+        (shift+0, cell_height - 2 * dot_distance_y + drop),    # Dot 2
+        (shift+0, cell_height - 3 * dot_distance_y + drop),    # Dot 3
+        (shift+dot_distance_x, cell_height - dot_distance_y + drop),    # Dot 4
+        (shift+dot_distance_x, cell_height - 2 * dot_distance_y + drop),# Dot 5
+        (shift+dot_distance_x, cell_height - 3 * dot_distance_y + drop),# Dot 6
+        (shift+0, cell_height - 4 * dot_distance_y + drop),    # Dot 7
+        (shift+dot_distance_x, cell_height - 4 * dot_distance_y + drop) # Dot 8
     ]
     
     for i, position in enumerate(dot_positions):
         if dots & (1 << i):
             x, y = position
-            draw_circle(pen, x, y+1.5*dot_distance_y, dot_radius)
+            draw_circle(pen, x, y-1*dot_distance_y, dot_radius)
 
 # Create Braille glyphs and overlay them
 for ascii_code, dots in enumerate(ascii_to_brl):
@@ -91,8 +92,12 @@ for ascii_code, dots in enumerate(ascii_to_brl):
             temp_svg = f"temp_{ascii_code}.svg"
             existing_glyph.export(temp_svg)
             glyph.importOutlines(temp_svg)
-            glyph.transform(psMat.scale(0.35))  # Scale down the existing glyph
-            glyph.transform(psMat.translate(0, cell_height + -3.6 * dot_distance_y))  # Move up the glyph
+            glyph.transform(psMat.scale(0.25))  # Scale down the existing glyph
+            glyph.transform(psMat.translate(0, cell_height-4.75*dot_distance_x))  # Move up the glyph
+
+# Ensure consistent widths for all glyphs
+for glyph in font.glyphs():
+    glyph.width = cell_width
 
 # Save the new font in various formats
 try:
