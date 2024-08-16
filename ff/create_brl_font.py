@@ -33,10 +33,10 @@ font.familyname = "ASCII Braille"
 font.encoding = "UnicodeFull"
 
 # Define the Braille cell dimensions and dot radius
-cell_width = 500
-cell_height = 4000
-dot_radius = 2*150
-dot_distance_x = 2*350
+cell_width = 1500
+cell_height = 1500
+dot_radius = 150
+dot_distance_x = 500
 dot_distance_y = dot_distance_x  # Same distance for x and y
 
 # Function to draw a circle (approximation using cubic Bézier curves)
@@ -56,7 +56,7 @@ def draw_circle(pen, cx, cy, r):
 # 3 6
 # 7 8
 def draw_braille_cell(pen, dots):
-    drop = -4.75*dot_distance_y
+    drop = -2.0*dot_distance_y
     shift = 0.5*dot_distance_x
     dot_positions = [
         (shift+0, cell_height - dot_distance_y + drop),        # Dot 1
@@ -79,7 +79,6 @@ for ascii_code, dots in enumerate(ascii_to_brl):
     print(f"Processing ASCII code: {ascii_code}")
     glyph = font.createChar(ascii_code)
     glyph.width = cell_width
-    #glyph.height = 4*cell_width
 
     # Draw the Braille cell
     pen = glyph.glyphPen()
@@ -92,7 +91,7 @@ for ascii_code, dots in enumerate(ascii_to_brl):
             temp_svg = f"temp_{ascii_code}.svg"
             existing_glyph.export(temp_svg)
             glyph.importOutlines(temp_svg)
-            glyph.transform(psMat.scale(0.25))  # Scale down the existing glyph
+            glyph.transform(psMat.scale(1))  # Scale down the existing glyph
             glyph.transform(psMat.translate(0, cell_height-4.75*dot_distance_x))  # Move up the glyph
 
 # Ensure consistent widths for all glyphs
