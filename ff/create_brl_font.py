@@ -79,7 +79,7 @@ for ascii_code, dots in enumerate(ascii_to_brl):
     print(f"Processing ASCII code: {ascii_code}")
     glyph = font.createChar(ascii_code)
     glyph.width = cell_width
-
+    
     # Draw the Braille cell
     pen = glyph.glyphPen()
     draw_braille_cell(pen, dots)
