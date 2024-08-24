@@ -34,9 +34,9 @@ font.encoding = "UnicodeFull"
 
 # Define the Braille cell dimensions and dot radius
 cell_width = 1500
-cell_height = 1500
-dot_radius = 150
-dot_distance_x = 500
+cell_height = cell_width
+dot_radius = 180 
+dot_distance_x = 600
 dot_distance_y = dot_distance_x  # Same distance for x and y
 
 # Function to draw a circle (approximation using cubic Bézier curves)
@@ -56,8 +56,8 @@ def draw_circle(pen, cx, cy, r):
 # 3 6
 # 7 8
 def draw_braille_cell(pen, dots):
-    drop = -2.0*dot_distance_y
-    shift = 0.5*dot_distance_x
+    drop =  -1000 # -2.5*dot_distance_y #-4.0*dot_distance_y
+    shift = 0  #0.5*dot_distance_x
     dot_positions = [
         (shift+0, cell_height - dot_distance_y + drop),        # Dot 1
         (shift+0, cell_height - 2 * dot_distance_y + drop),    # Dot 2
@@ -91,8 +91,7 @@ for ascii_code, dots in enumerate(ascii_to_brl):
             temp_svg = f"temp_{ascii_code}.svg"
             existing_glyph.export(temp_svg)
             glyph.importOutlines(temp_svg)
-            glyph.transform(psMat.scale(1))  # Scale down the existing glyph
-            glyph.transform(psMat.translate(0, cell_height-4.75*dot_distance_x))  # Move up the glyph
+            glyph.transform(psMat.translate(0, 0*cell_height))  # Move up the glyph
 
 # Ensure consistent widths for all glyphs
 for glyph in font.glyphs():
@@ -100,8 +99,8 @@ for glyph in font.glyphs():
 
 # Save the new font in various formats
 try:
-    font.os2_panose = (2, 0, 9, 3, 0, 0, 0, 0, 0, 0)
-
+    #font.os2_panose = (2, 0, 9, 3, 0, 0, 0, 0, 0, 0)
+    font.descent = 3000
     font.generate("asciibraille.ttf")
     font.generate("asciibraille.woff")
     font.generate("asciibraille.otf")
