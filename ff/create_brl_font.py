@@ -1,6 +1,7 @@
 #!fontforge -script 
 import fontforge
 import psMat  # Import psMat for transformations
+import os
 
 # ASCII to Braille dot pattern mapping
 ascii_to_brl = [
@@ -79,7 +80,7 @@ for ascii_code, dots in enumerate(ascii_to_brl):
     print(f"Processing ASCII code: {ascii_code}")
     glyph = font.createChar(ascii_code)
     glyph.width = cell_width
-    
+
     # Draw the Braille cell
     pen = glyph.glyphPen()
     draw_braille_cell(pen, dots)
@@ -91,6 +92,7 @@ for ascii_code, dots in enumerate(ascii_to_brl):
             temp_svg = f"temp_{ascii_code}.svg"
             existing_glyph.export(temp_svg)
             glyph.importOutlines(temp_svg)
+            os.remove(temp_svg)
 
 # Ensure consistent widths for all glyphs
 for glyph in font.glyphs():
@@ -98,12 +100,13 @@ for glyph in font.glyphs():
 
 # Save the new font in various formats
 try:
-    #font.os2_panose = (2, 0, 9, 3, 0, 0, 0, 0, 0, 0)
     font.descent = 3000
+    font.ascent = 600
     font.generate("asciibraille.ttf")
     font.generate("asciibraille.woff")
+    font.generate("asciibraille.woff2")
     font.generate("asciibraille.otf")
-    print("Font files generated: asciibraille.ttf, asciibraille.woff, asciibraille.otf")
+    print("Font files generated: asciibraille.ttf, asciibraille.woff, asciibraille.woff2, asciibraille.otf")
 except Exception as e:
     print(f"Error generating font files: {e}")
 
